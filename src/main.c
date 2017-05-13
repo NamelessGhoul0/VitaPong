@@ -40,17 +40,6 @@ AudioHandler pong_audio;
 extern unsigned char pixeled[];
 extern unsigned int pixeled_size;
 
-void init_audio() {
-	InitializeAudio(&bgm_audio);
-	
-	//load sound
-	//stream ogg from file as background soud - only 1 background sound possible
-	LoadOgg(&bgm_audio, "app0:/bgm.ogg", AUDIO_OUT_BGM,0);
-	LoadOgg(&pong_audio, "app0:/pong.ogg", AUDIO_OUT_MAIN,0);
-	
-	PlayAudio(&bgm_audio);
-}
-
 // ball struct
 struct {
 	int x;
@@ -216,11 +205,11 @@ void check_collision() {
 
 	// check for top & bottom block collision
 	if (ball.y < 30) {
-		PlayAudio(&pong_audio);
+		play_pong_snd();
 		reverse_ball_direction(); // bounce off top block
 	}
 	if (ball.y > 514-20) {
-		PlayAudio(&pong_audio);
+		play_pong_snd();
 		reverse_ball_direction(); // bounce off bottom block
 	}
 
@@ -236,7 +225,7 @@ void check_collision() {
 	left_paddle.face.bottom = (left_paddle.face.top + 100);
 
 	if (ball.x < 30 && (ball.y + 20) > left_paddle.face.top && ball.y < left_paddle.face.bottom) {
-		PlayAudio(&pong_audio);
+		play_pong_snd();
 		reverse_ball_direction_from_paddle();
 	}
 
@@ -245,7 +234,7 @@ void check_collision() {
 	right_paddle.face.bottom = (right_paddle.face.top + 100);
 
 	if ((ball.x + 20) > 930 && (ball.y + 20) > right_paddle.face.top && ball.y < right_paddle.face.bottom) {
-		PlayAudio(&pong_audio);
+		play_pong_snd();
 		reverse_ball_direction_from_paddle();
 	}
 
@@ -260,6 +249,22 @@ void check_collision() {
 	}
 
 	return;
+}
+
+void play_pong_snd() {
+	InitializeAudio(&pong_audio);
+
+	LoadOgg(&pong_audio, "app0:/pong.ogg", AUDIO_OUT_MAIN,0);
+
+	PlayAudio(&pong_audio);
+}
+
+void play_bgm() {
+	InitializeAudio(&bgm_audio);
+
+	LoadOgg(&bgm_audio, "app0:/bgm.ogg", AUDIO_OUT_BGM,0);
+
+	PlayAudio(&bgm_audio);
 }
 
 void credits(vita2d_font *font) {
@@ -302,10 +307,10 @@ void main_menu(vita2d_font *font) {
 			touchy = lerp(touch.report[0].y, 1087, 544);
 
 			if ((touchx > 370) && (touchy > 210) && (touchx < 570) && (touchy < 260)) {
-				PlayAudio(&pong_audio);
+				play_pong_snd();
 				break;
 			} else if ((touchx > 360) && (touchy > 310) && (touchx < 590) && (touchy < 360)) {
-				PlayAudio(&pong_audio);
+				play_pong_snd();
 				credits(font);
 			}
 		}
@@ -353,11 +358,11 @@ int main(void) {
 	vita2d_set_clear_color(BLACK);
 	vita2d_font *font = vita2d_load_font_mem(pixeled, pixeled_size);
 
-	init_audio();
-
 	sceCtrlSetSamplingMode(SCE_CTRL_MODE_ANALOG);
 
 	show_splash();
+
+	//play_bgm();
 
 	main_menu(font);
 
