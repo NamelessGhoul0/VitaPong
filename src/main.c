@@ -29,8 +29,7 @@
 #include "splash.h"
 #include "Audio.h"
 
-AudioHandler bgm_audio;
-AudioHandler pong_audio;
+AudioHandler pong_snd;
 
 #define lerp(value, from_max, to_max) ((((value*10) * (to_max*10))/(from_max*10))/10)
 
@@ -252,19 +251,10 @@ void check_collision() {
 }
 
 void play_pong_snd() {
-	InitializeAudio(&pong_audio);
+	InitializeAudio(&pong_snd);
+	LoadOgg(&pong_snd, "app0:/pong.ogg", AUDIO_OUT_MAIN,0);
 
-	LoadOgg(&pong_audio, "app0:/pong.ogg", AUDIO_OUT_MAIN,0);
-
-	PlayAudio(&pong_audio);
-}
-
-void play_bgm() {
-	InitializeAudio(&bgm_audio);
-
-	LoadOgg(&bgm_audio, "app0:/bgm.ogg", AUDIO_OUT_BGM,0);
-
-	PlayAudio(&bgm_audio);
+	PlayAudio(&pong_snd);
 }
 
 void credits(vita2d_font *font) {
@@ -278,14 +268,13 @@ void credits(vita2d_font *font) {
 
 		vita2d_font_draw_textf(font, 100, y_pos, WHITE, 30, "Main Developer: NamelessGhoul0");
 		vita2d_font_draw_textf(font, 125, y_pos+100, WHITE, 30, "LiveArea Design: ACViperPro");
-		vita2d_font_draw_textf(font, 180, y_pos+200, WHITE, 30, "Music: Pong by Eisenfunk");
-		vita2d_font_draw_textf(font, 300, y_pos+300, WHITE, 30, "RIP Ralph Baer");
+		vita2d_font_draw_textf(font, 300, y_pos+200, WHITE, 30, "RIP Ralph Baer");
 
 		vita2d_end_drawing();
 		vita2d_swap_buffers();
 		sceDisplayWaitVblankStart();
 
-		if ((y_pos+300) < 0) {
+		if ((y_pos+200) < 0) {
 			break;
 		}
 	}
@@ -361,8 +350,6 @@ int main(void) {
 	sceCtrlSetSamplingMode(SCE_CTRL_MODE_ANALOG);
 
 	show_splash();
-
-	//play_bgm();
 
 	main_menu(font);
 

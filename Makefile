@@ -42,8 +42,7 @@ $(TARGET).vpk: eboot.bin
 	-a res/template.xml=sce_sys/livearea/contents/template.xml \
 	-a res/startup.png=sce_sys/livearea/contents/startup.png \
 	-a res/bg0.png=sce_sys/livearea/contents/bg0.png \
-	-a res/pong.ogg=pong.ogg \
-	-a res/bgm.ogg=bgm.ogg $@
+	-a res/pong.ogg=pong.ogg $@
 
 eboot.bin: $(TARGET).velf
 	vita-make-fself -c -s $< eboot.bin
