@@ -16,9 +16,9 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __SPLASH_H_
-#define __SPLASH_H_
+#ifndef __AUDIO_H_
+#define __AUDIO_H_
 
-void show_splash(void);
+void play_pong_snd();
 
 #endif

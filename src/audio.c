@@ -16,9 +16,9 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __SPLASH_H_
-#define __SPLASH_H_
+void play_pong_snd() {
+	//InitializeAudio(&pong_snd);
+	//LoadOgg(&pong_snd, "app0:/pong.ogg", AUDIO_OUT_MAIN,0);
 
-void show_splash(void);
-
-#endif
+	//PlayAudio(&pong_snd);
+}

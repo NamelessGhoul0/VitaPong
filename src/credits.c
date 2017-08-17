@@ -16,9 +16,33 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __SPLASH_H_
-#define __SPLASH_H_
+#include <psp2/display.h>
+#include <psp2/touch.h>
+#include <vita2d.h>
 
-void show_splash(void);
+#define BLACK   RGBA8(0, 0, 0, 255)
+#define WHITE	RGBA8(255, 255, 255, 255)
 
-#endif
+void credits(vita2d_font *font) {
+	int y_pos = 544;
+
+	while (1) {
+		y_pos--;
+
+		vita2d_start_drawing();
+		vita2d_clear_screen();
+
+		vita2d_font_draw_textf(font, 100, y_pos, WHITE, 30, "Main Developer: NamelessGhoul0");
+		vita2d_font_draw_textf(font, 125, y_pos+100, WHITE, 30, "LiveArea Design: ACViperPro");
+		vita2d_font_draw_textf(font, 300, y_pos+200, WHITE, 30, "RIP Ralph Baer");
+
+		vita2d_end_drawing();
+		vita2d_swap_buffers();
+		sceDisplayWaitVblankStart();
+
+		if ((y_pos+200) < 0) {
+			break;
+		}
+	}
+	return;
+}

@@ -26,10 +26,10 @@
 #include <psp2/touch.h>
 #include <vita2d.h>
 
+#include "audio.h"
+#include "credits.h"
+#include "menu.h"
 #include "splash.h"
-#include "Audio.h"
-
-AudioHandler pong_snd;
 
 #define lerp(value, from_max, to_max) ((((value*10) * (to_max*10))/(from_max*10))/10)
 
@@ -247,82 +247,6 @@ void check_collision() {
 		set_ball();
 	}
 
-	return;
-}
-
-void play_pong_snd() {
-	InitializeAudio(&pong_snd);
-	LoadOgg(&pong_snd, "app0:/pong.ogg", AUDIO_OUT_MAIN,0);
-
-	PlayAudio(&pong_snd);
-}
-
-void credits(vita2d_font *font) {
-	int y_pos = 544;
-
-	while (1) {
-		y_pos--;
-
-		vita2d_start_drawing();
-		vita2d_clear_screen();
-
-		vita2d_font_draw_textf(font, 100, y_pos, WHITE, 30, "Main Developer: NamelessGhoul0");
-		vita2d_font_draw_textf(font, 125, y_pos+100, WHITE, 30, "LiveArea Design: ACViperPro");
-		vita2d_font_draw_textf(font, 300, y_pos+200, WHITE, 30, "RIP Ralph Baer");
-
-		vita2d_end_drawing();
-		vita2d_swap_buffers();
-		sceDisplayWaitVblankStart();
-
-		if ((y_pos+200) < 0) {
-			break;
-		}
-	}
-	return;
-}
-
-void main_menu(vita2d_font *font) {
-	SceTouchData touch;
-	int touchx;
-	int touchy;
-
-	sceTouchSetSamplingState(SCE_TOUCH_PORT_FRONT, 1);
-
-	while (1) {
-		sceTouchPeek(SCE_TOUCH_PORT_FRONT, &touch, 1);
-
-		if (touch.reportNum > 0) {
-			touchx = lerp(touch.report[0].x, 1919, 960);
-			touchy = lerp(touch.report[0].y, 1087, 544);
-
-			if ((touchx > 370) && (touchy > 210) && (touchx < 570) && (touchy < 260)) {
-				play_pong_snd();
-				break;
-			} else if ((touchx > 360) && (touchy > 310) && (touchx < 590) && (touchy < 360)) {
-				play_pong_snd();
-				credits(font);
-			}
-		}
-
-		vita2d_start_drawing();
-		vita2d_clear_screen();
-
-		// box around the start button
-		vita2d_draw_rectangle(370, 210, 200, 50, WHITE);
-		vita2d_draw_rectangle(370+2, 210+2, 200-4, 50-4, BLACK);
-
-		// box around the credits button
-		vita2d_draw_rectangle(360, 310, 230, 50, WHITE);
-		vita2d_draw_rectangle(360+2, 310+2, 230-4, 50-4, BLACK);
-
-		vita2d_font_draw_textf(font, 365, 130, WHITE, 60, "PONG");
-		vita2d_font_draw_textf(font, 395, 250+3, WHITE, 30, "START");
-		vita2d_font_draw_textf(font, 380, 350+3, WHITE, 30, "CREDITS");
-
-		vita2d_end_drawing();
-		vita2d_swap_buffers();
-		sceDisplayWaitVblankStart();
-	}
 	return;
 }
 

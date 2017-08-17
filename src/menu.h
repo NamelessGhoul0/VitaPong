@@ -16,9 +16,9 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __SPLASH_H_
-#define __SPLASH_H_
+#ifndef __MENU_H_
+#define __MENU_H_
 
-void show_splash(void);
+void main_menu(vita2d_font *font);
 
 #endif
