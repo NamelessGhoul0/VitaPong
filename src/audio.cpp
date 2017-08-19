@@ -31,17 +31,17 @@ void audio_init() {
 }
 
 void play_pong_paddle() {
-	gWave.load("app0:/pong_paddle.wav");
+	gWave.load("app0:/pong_paddle.ogg");
 	gSoloud.play(gWave);
 }
 
 void play_pong_score() {
-	gWave.load("app0:/pong_score.wav");
+	gWave.load("app0:/pong_score.ogg");
 	gSoloud.play(gWave);
 }
 
 void play_pong_wall() {
-	gWave.load("app0:/pong_wall.wav");
+	gWave.load("app0:/pong_wall.ogg");
 	gSoloud.play(gWave);
 }
 

@@ -14,6 +14,7 @@ include("${VITASDK}/share/vita.cmake" REQUIRED)
 
 set(VITA_APP_NAME "Pong")
 set(VITA_TITLEID  "VITAPONG0")
+set(VITA_VERSION  "01.00")
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu11")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
@@ -56,7 +57,7 @@ vita_create_vpk(${SHORT_NAME}.vpk ${VITA_TITLEID} ${SHORT_NAME}.self
   FILE res/template.xml sce_sys/livearea/contents/template.xml
   FILE res/startup.png sce_sys/livearea/contents/startup.png
   FILE res/bg0.png sce_sys/livearea/contents/bg0.png
-  FILE res/pong_paddle.wav pong_paddle.wav
-  FILE res/pong_score.wav pong_score.wav
-  FILE res/pong_wall.wav pong_wall.wav
+  FILE res/pong_paddle.ogg pong_paddle.ogg
+  FILE res/pong_score.ogg pong_score.ogg
+  FILE res/pong_wall.ogg pong_wall.ogg
 )
