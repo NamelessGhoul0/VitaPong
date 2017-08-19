@@ -16,6 +16,7 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <psp2/ctrl.h>
 #include <psp2/display.h>
 #include <psp2/touch.h>
 #include <vita2d.h>
@@ -23,10 +24,19 @@
 #define BLACK   RGBA8(0, 0, 0, 255)
 #define WHITE	RGBA8(255, 255, 255, 255)
 
+#define SCE_CTRL_ANY (SCE_CTRL_UP | SCE_CTRL_DOWN | SCE_CTRL_LEFT | SCE_CTRL_RIGHT | SCE_CTRL_TRIANGLE | SCE_CTRL_CROSS | SCE_CTRL_SQUARE | SCE_CTRL_CIRCLE | SCE_CTRL_LTRIGGER | SCE_CTRL_RTRIGGER | SCE_CTRL_SELECT | SCE_CTRL_START)
+
 void credits(vita2d_font *font) {
+	SceCtrlData ctrl;
 	int y_pos = 544;
 
 	while (1) {
+		sceCtrlPeekBufferPositive(0, &ctrl, 1);
+
+		if (ctrl.buttons & SCE_CTRL_ANY) {
+			break;
+		}
+
 		y_pos--;
 
 		vita2d_start_drawing();
