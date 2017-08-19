@@ -43,10 +43,10 @@ void main_menu(vita2d_font *font) {
 			touchy = lerp(touch.report[0].y, 1087, 544);
 
 			if ((touchx > 370) && (touchy > 210) && (touchx < 570) && (touchy < 260)) {
-				play_pong_snd();
+				play_pong_score();
 				break;
 			} else if ((touchx > 360) && (touchy > 310) && (touchx < 590) && (touchy < 360)) {
-				play_pong_snd();
+				play_pong_score();
 				credits(font);
 			}
 		}

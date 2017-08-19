@@ -204,11 +204,11 @@ void check_collision() {
 
 	// check for top & bottom block collision
 	if (ball.y < 30) {
-		play_pong_snd();
+		play_pong_wall();
 		reverse_ball_direction(); // bounce off top block
 	}
 	if (ball.y > 514-20) {
-		play_pong_snd();
+		play_pong_wall();
 		reverse_ball_direction(); // bounce off bottom block
 	}
 
@@ -224,7 +224,7 @@ void check_collision() {
 	left_paddle.face.bottom = (left_paddle.face.top + 100);
 
 	if (ball.x < 30 && (ball.y + 20) > left_paddle.face.top && ball.y < left_paddle.face.bottom) {
-		play_pong_snd();
+		play_pong_paddle();
 		reverse_ball_direction_from_paddle();
 	}
 
@@ -233,16 +233,18 @@ void check_collision() {
 	right_paddle.face.bottom = (right_paddle.face.top + 100);
 
 	if ((ball.x + 20) > 930 && (ball.y + 20) > right_paddle.face.top && ball.y < right_paddle.face.bottom) {
-		play_pong_snd();
+		play_pong_paddle();
 		reverse_ball_direction_from_paddle();
 	}
 
 	// check if ball made it past the paddle
 	if (ball.x < (30 - 1 - ball.speed.x)) {
+		play_pong_score();
 		score.left++;
 		set_ball();
 	}
 	if (ball.x > (930 + 1 + ball.speed.x)) {
+		play_pong_score();
 		score.right++;
 		set_ball();
 	}
@@ -270,6 +272,7 @@ int main(void) {
 	vita2d_init();
 	vita2d_set_clear_color(BLACK);
 	vita2d_font *font = vita2d_load_font_mem(pixeled, pixeled_size);
+	audio_init();
 
 	sceCtrlSetSamplingMode(SCE_CTRL_MODE_ANALOG);
 

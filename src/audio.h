@@ -19,6 +19,12 @@
 #ifndef __AUDIO_H_
 #define __AUDIO_H_
 
-void play_pong_snd();
+void audio_init();
+
+void play_pong_paddle();
+
+void play_pong_score();
+
+void play_pong_wall();
 
 #endif

@@ -16,9 +16,35 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-void play_pong_snd() {
-	//InitializeAudio(&pong_snd);
-	//LoadOgg(&pong_snd, "app0:/pong.ogg", AUDIO_OUT_MAIN,0);
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-	//PlayAudio(&pong_snd);
+#include "soloud.h"
+#include "soloud_wav.h"
+
+SoLoud::Soloud gSoloud;
+SoLoud::Wav gWave;
+
+void audio_init() {
+	gSoloud.init();
 }
+
+void play_pong_paddle() {
+	gWave.load("app0:/pong_paddle.wav");
+	gSoloud.play(gWave);
+}
+
+void play_pong_score() {
+	gWave.load("app0:/pong_score.wav");
+	gSoloud.play(gWave);
+}
+
+void play_pong_wall() {
+	gWave.load("app0:/pong_wall.wav");
+	gSoloud.play(gWave);
+}
+
+#ifdef __cplusplus
+}
+#endif

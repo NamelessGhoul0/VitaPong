@@ -23,7 +23,7 @@ include_directories(
 
 add_executable(${SHORT_NAME}
   src/main.c
-  src/audio.c
+  src/audio.cpp
   src/menu.c
   src/credits.c
   src/font.c
@@ -56,5 +56,7 @@ vita_create_vpk(${SHORT_NAME}.vpk ${VITA_TITLEID} ${SHORT_NAME}.self
   FILE res/template.xml sce_sys/livearea/contents/template.xml
   FILE res/startup.png sce_sys/livearea/contents/startup.png
   FILE res/bg0.png sce_sys/livearea/contents/bg0.png
-  FILE res/pong.ogg pong.ogg
+  FILE res/pong_paddle.wav pong_paddle.wav
+  FILE res/pong_score.wav pong_score.wav
+  FILE res/pong_wall.wav pong_wall.wav
 )
