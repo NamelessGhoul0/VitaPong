@@ -237,6 +237,13 @@ void check_collision() {
 		reverse_ball_direction_from_paddle();
 	}
 
+	/* Ball bug is here
+		Problem: The ball bounces inside the paddle
+			This occurs when the ball is past the paddle, but not enough to trigger a score
+			(it waits till the ball is several pixels past the paddle)
+		Solution: Check if the TOP or BOTTOM of the ball has touched the edge of the paddle
+			to stop the reverse_ball_direction_from_paddle() call (make a comparison inside the if statement)
+	*/
 	// check if ball made it past the paddle
 	if (ball.x < (30 - 1 - ball.speed.x)) {
 		play_pong_score();
