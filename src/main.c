@@ -108,18 +108,22 @@ void draw_score(vita2d_font *font, char *left_score, char *right_score) {
 }
 
 void check_score(vita2d_font *font, int left_score, int right_score) {
-	if (left_score > 9) {
+	if (left_score > 11) {
 		vita2d_font_draw_textf(font, 530, 300, WHITE, 60, "Winner");
 		vita2d_end_drawing();
 		vita2d_swap_buffers();
 		sceKernelDelayThread(5 * 1000 * 1000);
+		score.left = 0;
+		score.right = 0;
 		main_menu(font);
 	}
-	if (right_score > 9) {
+	if (right_score > 11) {
 		vita2d_font_draw_textf(font, 70, 300, WHITE, 60, "Winner");
 		vita2d_end_drawing();
 		vita2d_swap_buffers();
 		sceKernelDelayThread(5 * 1000 * 1000);
+		score.left = 0;
+		score.right = 0;
 		main_menu(font);
 	}
 }
@@ -224,6 +228,7 @@ void check_collision() {
 	left_paddle.face.bottom = (left_paddle.face.top + 100);
 
 	if (ball.x < 30 && (ball.y + 20) > left_paddle.face.top && ball.y < left_paddle.face.bottom) {
+		ball.x = 30; // move ball in front of the paddle
 		play_pong_paddle();
 		reverse_ball_direction_from_paddle();
 	}
@@ -233,17 +238,11 @@ void check_collision() {
 	right_paddle.face.bottom = (right_paddle.face.top + 100);
 
 	if ((ball.x + 20) > 930 && (ball.y + 20) > right_paddle.face.top && ball.y < right_paddle.face.bottom) {
+		ball.x = (930 - 20); // move ball in front of the paddle
 		play_pong_paddle();
 		reverse_ball_direction_from_paddle();
 	}
 
-	/* Ball bug is here
-		Problem: The ball bounces inside the paddle
-			This occurs when the ball is past the paddle, but not enough to trigger a score
-			(it waits till the ball is several pixels past the paddle)
-		Solution: Check if the TOP or BOTTOM of the ball has touched the edge of the paddle
-			to stop the reverse_ball_direction_from_paddle() call (make a comparison inside the if statement)
-	*/
 	// check if ball made it past the paddle
 	if (ball.x < (30 - 1 - ball.speed.x)) {
 		play_pong_score();
@@ -283,7 +282,7 @@ int main(void) {
 
 	sceCtrlSetSamplingMode(SCE_CTRL_MODE_ANALOG);
 
-	show_splash();
+	//show_splash();
 
 	main_menu(font);
 
