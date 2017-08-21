@@ -294,19 +294,19 @@ int main(void) {
 		vita2d_clear_screen();
 
 		// control left paddle
-		if (ctrl.buttons & SCE_CTRL_UP) {
-			left_paddle.pos -= left_paddle.speed;
+		if (ctrl.ly < 100) {
+			left_paddle.pos -= left_paddle.speed; // move up
 		}
-		if (ctrl.buttons & SCE_CTRL_DOWN) {
-			left_paddle.pos += left_paddle.speed;
+		if (ctrl.ly > 140) {
+			left_paddle.pos += left_paddle.speed; // move down
 		}
 
 		// control right paddle
-		if (ctrl.buttons & SCE_CTRL_TRIANGLE) {
-			right_paddle.pos -= right_paddle.speed;
+		if (ctrl.ry < 100) {
+			right_paddle.pos -= right_paddle.speed; // move up
 		}
-		if (ctrl.buttons & SCE_CTRL_CROSS) {
-			right_paddle.pos += right_paddle.speed;
+		if (ctrl.ry > 140) {
+			right_paddle.pos += right_paddle.speed; // move down
 		}
 
 		// make sure paddles dont go out of bounds

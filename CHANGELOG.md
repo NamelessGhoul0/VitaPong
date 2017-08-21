@@ -10,3 +10,4 @@
 - Score now goes to 11 before the game is over to match the original game
 - Score now resets itself after the game is over
 - Fixed bug where the ball gets stuck inside the paddle
+- Added analog stick support
