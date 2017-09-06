@@ -3,7 +3,7 @@
 ## [v1.00] - 08/12/2016
 - Initial release into the Gekihen homebrew competition
 
-## [v1.??] - ??/??/??
+## [v1.10] - 09/06/2017
 - Fixed audio support using the SoLoud library
 - Any button press in the credits menu will now exit back to the main menu
 - Now uses the correct pong sounds to match the original game
